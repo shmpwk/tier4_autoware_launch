@@ -101,7 +101,7 @@ def generate_launch_description():
                 remappings=[
                     ("~/input/image", LaunchConfiguration("input/image")),
                     ("~/input/rois", "rois"),
-                    ("~/output/traffic_signals", "traffic_signals"),
+                    ("~/output/traffic_signals", "observed/traffic_signals"),
                 ],
                 extra_arguments=[
                     {"use_intra_process_comms": LaunchConfiguration("use_intra_process")}
