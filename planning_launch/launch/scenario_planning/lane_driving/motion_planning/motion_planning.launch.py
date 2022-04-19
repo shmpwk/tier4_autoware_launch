@@ -189,7 +189,7 @@ def generate_launch_description():
     sampler_node_param_path = os.path.join(
         get_package_share_directory("sampler_node"),
         "config",
-        "sampler_node.config.yaml",
+        "sampler_node.param.yaml",
     )
     with open(sampler_node_param_path, "r") as f:
         sampler_node_param = yaml.safe_load(f)["/**"]["ros__parameters"]
@@ -209,8 +209,8 @@ def generate_launch_description():
             ("~/input/route", LaunchConfiguration("input_route_topic_name")),
         ],
         parameters=[
+            sampler_node_param,
             common_param,
-            # sampler_node_param,
         ],
         prefix=['konsole -e gdb -ex run --args'],  # for debugging
         # prefix=['valgrind --tool=callgrind'],  # for profiling
@@ -219,7 +219,6 @@ def generate_launch_description():
         #  --track-origins=yes \
         #  --verbose \
         #  --log-file=valgrind-out.txt'],
-
     )
 
     surround_obstacle_checker_loader = LoadComposableNodes(
@@ -263,6 +262,6 @@ def generate_launch_description():
             # container,
             # surround_obstacle_checker_loader,
             # relay_loader,
-            sampler_node
+            sampler_node,
         ]
     )
