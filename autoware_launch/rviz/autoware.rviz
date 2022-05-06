@@ -1247,6 +1247,65 @@ Visualization Manager:
                         Reliability Policy: Reliable
                         Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/drivable_area_boundary
                       Value: true
+                    - Class: rviz_common/Group
+                      Displays:
+                        - Alpha: 1
+                          Axes Length: 1
+                          Axes Radius: 0.30000001192092896
+                          Class: rviz_default_plugins/Pose
+                          Color: 255; 25; 0
+                          Enabled: true
+                          Head Length: 0.30000001192092896
+                          Head Radius: 0.10000000149011612
+                          Name: Pose
+                          Shaft Length: 1
+                          Shaft Radius: 0.05000000074505806
+                          Shape: Axes
+                          Topic:
+                            Depth: 5
+                            Durability Policy: Volatile
+                            Filter size: 10
+                            History Policy: Keep Last
+                            Reliability Policy: Reliable
+                            Value: /planning/scenario_planning/modified_goal
+                          Value: true
+                        - Alpha: 1
+                          Arrow Length: 1
+                          Axes Length: 0.30000001192092896
+                          Axes Radius: 0.009999999776482582
+                          Class: rviz_default_plugins/PoseArray
+                          Color: 150; 255; 255
+                          Enabled: true
+                          Head Length: 0.20000000298023224
+                          Head Radius: 0.5
+                          Name: PoseArray
+                          Shaft Length: 0.30000001192092896
+                          Shaft Radius: 0.10000000149011612
+                          Shape: Arrow (3D)
+                          Topic:
+                            Depth: 5
+                            Durability Policy: Volatile
+                            Filter size: 10
+                            History Policy: Keep Last
+                            Reliability Policy: Reliable
+                            Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/pull_over/debug/path_pose_array
+                          Value: true
+                        - Class: rviz_default_plugins/MarkerArray
+                          Enabled: true
+                          Name: MarkerArray
+                          Namespaces:
+                            collision_polygons: true
+                          Topic:
+                            Depth: 5
+                            Durability Policy: Volatile
+                            History Policy: Keep Last
+                            Reliability Policy: Reliable
+                            Value: /planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/pull_over/debug/parking_area
+                          Value: true
+                      Enabled: true
+                      Name: PullOver
+                  Enabled: true
+                  Name: BehaviorPlanning
                   Enabled: true
                   Name: BehaviorPlanning
                 - Class: rviz_common/Group
