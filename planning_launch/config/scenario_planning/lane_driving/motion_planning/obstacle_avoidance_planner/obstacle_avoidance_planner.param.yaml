@@ -16,7 +16,7 @@
       # other
       enable_avoidance: false # enable avoidance function
       enable_pre_smoothing: true # enable EB
-      skip_optimization: false # skip MPT and EB
+      skip_optimization: true # skip MPT and EB
       reset_prev_optimization: false
 
     common:
