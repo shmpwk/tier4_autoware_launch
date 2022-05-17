@@ -107,6 +107,32 @@ def launch_setup(context, *args, **kwargs):
         extra_arguments=[{"use_intra_process_comms": LaunchConfiguration("use_intra_process")}],
     )
 
+    controller_component = ComposableNode(
+        package="trajectory_follower_nodes",
+        plugin="autoware::motion::control::trajectory_follower_nodes::Controller",
+        name="controller_node_exe",
+        namespace="trajectory_follower",
+        remappings=[
+            ("~/input/current_trajectory", "/planning/scenario_planning/trajectory"),
+            ("~/input/current_odometry", "/localization/kinematic_state"),
+            ("~/input/current_steering", "/vehicle/status/steering_status"),
+            ("~/output/lateral_control_cmd", "lateral/control_cmd"),
+            ("~/output/predicted_trajectory", "lateral/predicted_trajectory"),
+            ("~/output/lateral_diagnostic", "lateral/diagnostic"),
+
+            ("~/output/longitudinal_control_cmd", "longitudinal/control_cmd"),
+            ("~/output/slope_angle", "longitudinal/slope_angle"),
+            ("~/output/longitudinal_diagnostic", "longitudinal/diagnostic"),
+
+            ("~/output/control_cmd", "control_cmd"),
+        ],
+        parameters=[
+            lon_controller_param,
+            lat_controller_param
+        ],
+        extra_arguments=[{"use_intra_process_comms": LaunchConfiguration("use_intra_process")}],
+    )
+
     # latlon muxer
     latlon_muxer_component = ComposableNode(
         package="trajectory_follower_nodes",
@@ -255,6 +281,20 @@ def launch_setup(context, *args, **kwargs):
         condition=LaunchConfigurationEquals("lateral_controller_mode", "pure_pursuit"),
     )
 
+    control_container = ComposableNodeContainer(
+        name="control_container",
+        namespace="",
+        package="rclcpp_components",
+        executable=LaunchConfiguration("container_executable"),
+        composable_node_descriptions=[
+            controller_component,
+            # lane_departure_component,
+            shift_decider_component,
+            vehicle_cmd_gate_component,
+        ],
+        condition=LaunchConfigurationEquals("lateral_controller_mode", "mpc_follower"),
+    )
+
     # lateral controller is separated since it may be another controller (e.g. pure pursuit)
     mpc_follower_loader = LoadComposableNodes(
         composable_node_descriptions=[mpc_follower_component],
@@ -270,11 +310,12 @@ def launch_setup(context, *args, **kwargs):
     group = GroupAction(
         [
             PushRosNamespace("control"),
-            mpc_follower_container,
+            control_container,
+            # mpc_follower_container,
             pure_pursuit_container,
             external_cmd_selector_loader,
             external_cmd_converter_loader,
-            mpc_follower_loader,
+            # mpc_follower_loader,
             pure_pursuit_loader,
         ]
     )
