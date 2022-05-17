@@ -119,17 +119,12 @@ def launch_setup(context, *args, **kwargs):
             ("~/output/lateral_control_cmd", "lateral/control_cmd"),
             ("~/output/predicted_trajectory", "lateral/predicted_trajectory"),
             ("~/output/lateral_diagnostic", "lateral/diagnostic"),
-
             ("~/output/longitudinal_control_cmd", "longitudinal/control_cmd"),
             ("~/output/slope_angle", "longitudinal/slope_angle"),
             ("~/output/longitudinal_diagnostic", "longitudinal/diagnostic"),
-
             ("~/output/control_cmd", "control_cmd"),
         ],
-        parameters=[
-            lon_controller_param,
-            lat_controller_param
-        ],
+        parameters=[lon_controller_param, lat_controller_param],
         extra_arguments=[{"use_intra_process_comms": LaunchConfiguration("use_intra_process")}],
     )
 
