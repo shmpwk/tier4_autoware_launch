@@ -18,7 +18,7 @@
       # occupancy grid map
       collision_check_margin: 0.5
       theta_size: 360
-      obstacle_threshold: 90
+      obstacle_threshold: 60
       # shift path
       pull_over_sampling_num: 4
       maximum_lateral_jerk: 2.0
